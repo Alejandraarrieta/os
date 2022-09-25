@@ -26,11 +26,11 @@ int main(int argc, char *argv[]){
     if(pid2==0) {
         signal(SIGUSR1, handler);
         sleep(50);
-        _exit(status2);
         
     }else{
         fprintf(stderr,"Proceso padre esperando por el hijo %d\n", pid2);
         wait(&status2);
+        fprintf(stderr,"Hijo %d terminado.\n", getpid());
     }
        
     fprintf(stderr,"Proceso padre %d terminado\n", getppid());
@@ -40,6 +40,5 @@ int main(int argc, char *argv[]){
 
 void handler (int sig) {
     fprintf(stderr,"\nRecibida la señal SIGUSR1!\n");
-    fprintf(stderr,"Hijo %d terminado.\n", getpid());
-    exit(0);
+    _exit(0);
 }
